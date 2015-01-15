@@ -177,7 +177,7 @@
 
 - (void)setViewsArray:(NSMutableArray *)viewsArray
 {
-    if (viewsArray)
+    if (viewsArray && viewsArray.count > 0)
     {
         _viewsArray = viewsArray;
         _currentPage = 0;
