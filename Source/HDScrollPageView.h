@@ -20,4 +20,6 @@
 
 - (void)shouldAutoShow:(BOOL)shouldStart;
 
+- (void)reloadData;
+
 @end
