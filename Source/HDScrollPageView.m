@@ -18,7 +18,7 @@
 @property (nonatomic, strong) UIView *firstView;
 @property (nonatomic, strong) UIView *middleView;
 @property (nonatomic, strong) UIView *lastView;
-
+@property (nonatomic, assign) BOOL shouldAutoStart;
 @property (nonatomic, strong) NSTimer *autoScrollTimer;
 
 @end
@@ -134,13 +134,16 @@
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
 {
-    [_autoScrollTimer invalidate];
-    _autoScrollTimer = nil;
-    _autoScrollTimer = [NSTimer scheduledTimerWithTimeInterval:_autoScrollDelayTime
-                                                        target:self
-                                                      selector:@selector(autoShowNext)
-                                                      userInfo:nil
-                                                       repeats:YES];
+    if (_shouldAutoStart)
+    {
+        [_autoScrollTimer invalidate];
+        _autoScrollTimer = nil;
+        _autoScrollTimer = [NSTimer scheduledTimerWithTimeInterval:_autoScrollDelayTime
+                                                            target:self
+                                                          selector:@selector(autoShowNext)
+                                                          userInfo:nil
+                                                           repeats:YES];
+    }
     int x = scrollView.contentOffset.x;
     //往下翻一张
     if (x >= (2 * self.frame.size.width))
@@ -211,6 +214,7 @@
 
 - (void)shouldAutoShow:(BOOL)shouldStart
 {
+    _shouldAutoStart = shouldStart;
     if (shouldStart)
     {
         if ([_autoScrollTimer isValid])
