@@ -156,6 +156,10 @@
         {
             _currentPage++;
         }
+        if (_didScrollBlock)
+        {
+            _didScrollBlock(self, _currentPage);
+        }
     }
 
     //往上翻
@@ -166,7 +170,13 @@
             _currentPage = [_viewsArray count] - 1;
         }
         else
+        {
             _currentPage--;
+        }
+        if (_didScrollBlock)
+        {
+            _didScrollBlock(self, _currentPage);
+        }
     }
 
     [self reloadData];

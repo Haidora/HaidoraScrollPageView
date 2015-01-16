@@ -17,6 +17,7 @@
 @property (nonatomic, strong) NSMutableArray *viewsArray;
 
 @property (nonatomic, copy) void (^didClickBlock)(HDScrollPageView *view, NSInteger index);
+@property (nonatomic, copy) void (^didScrollBlock)(HDScrollPageView *view, NSInteger index);
 
 - (void)shouldAutoShow:(BOOL)shouldStart;
 
