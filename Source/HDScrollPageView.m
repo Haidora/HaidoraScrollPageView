@@ -64,7 +64,8 @@
     _scrollView.autoresizingMask =
         UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     _scrollView.delegate = self;
-    _scrollView.showsHorizontalScrollIndicator = YES;
+    _scrollView.showsHorizontalScrollIndicator = NO;
+    _scrollView.scrollEnabled = NO;
     _scrollView.pagingEnabled = YES;
     [_scrollView addGestureRecognizer:_tap];
     [self addSubview:_scrollView];
@@ -194,6 +195,11 @@
 
         _pageControl.numberOfPages = [viewsArray count];
         [_pageControl setCurrentPage:_currentPage];
+        self.scrollView.scrollEnabled = YES;
+    }
+    else
+    {
+        self.scrollView.scrollEnabled = NO;
     }
     [self reloadData];
 }
