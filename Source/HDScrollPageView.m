@@ -188,13 +188,14 @@
 
 - (void)setViewsArray:(NSMutableArray *)viewsArray
 {
-    if (viewsArray && viewsArray.count > 0)
-    {
-        _viewsArray = viewsArray;
-        _currentPage = 0;
+    _viewsArray = viewsArray;
+    _currentPage = 0;
 
-        _pageControl.numberOfPages = [viewsArray count];
-        [_pageControl setCurrentPage:_currentPage];
+    _pageControl.numberOfPages = [viewsArray count];
+    [_pageControl setCurrentPage:_currentPage];
+
+    if (viewsArray && viewsArray.count > 1)
+    {
         self.scrollView.scrollEnabled = YES;
     }
     else
