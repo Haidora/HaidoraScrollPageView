@@ -92,38 +92,42 @@
     [_middleView removeFromSuperview];
     [_lastView removeFromSuperview];
 
-    if (_currentPage == 0)
+    if (_viewsArray.count > 0)
     {
-        _firstView = [_viewsArray lastObject];
-        _middleView = [_viewsArray objectAtIndex:_currentPage];
-        if ([_viewsArray count] > 1)
+        if (_currentPage == 0)
         {
+            _firstView = [_viewsArray lastObject];
+            _middleView = [_viewsArray objectAtIndex:_currentPage];
+            if ([_viewsArray count] > 1)
+            {
+                _lastView = [_viewsArray objectAtIndex:_currentPage + 1];
+            }
+        }
+        else if (_currentPage == [_viewsArray count] - 1)
+        {
+            _firstView = [_viewsArray objectAtIndex:_currentPage - 1];
+            _middleView = [_viewsArray objectAtIndex:_currentPage];
+            _lastView = [_viewsArray objectAtIndex:0];
+        }
+        else
+        {
+            _firstView = [_viewsArray objectAtIndex:_currentPage - 1];
+            _middleView = [_viewsArray objectAtIndex:_currentPage];
             _lastView = [_viewsArray objectAtIndex:_currentPage + 1];
         }
-    }
-    else if (_currentPage == [_viewsArray count] - 1)
-    {
-        _firstView = [_viewsArray objectAtIndex:_currentPage - 1];
-        _middleView = [_viewsArray objectAtIndex:_currentPage];
-        _lastView = [_viewsArray objectAtIndex:0];
-    }
-    else
-    {
-        _firstView = [_viewsArray objectAtIndex:_currentPage - 1];
-        _middleView = [_viewsArray objectAtIndex:_currentPage];
-        _lastView = [_viewsArray objectAtIndex:_currentPage + 1];
-    }
-    [_pageControl setCurrentPage:_currentPage];
+        [_pageControl setCurrentPage:_currentPage];
 
-    CGSize scrollSize = self.bounds.size;
-    [_firstView setFrame:CGRectMake(0, 0, scrollSize.width, scrollSize.height)];
-    [_middleView setFrame:CGRectMake(scrollSize.width, 0, scrollSize.width, scrollSize.height)];
-    [_lastView setFrame:CGRectMake(scrollSize.width * 2, 0, scrollSize.width, scrollSize.height)];
-    [_scrollView addSubview:_firstView];
-    [_scrollView addSubview:_middleView];
-    [_scrollView addSubview:_lastView];
-    _scrollView.contentSize = CGSizeMake(self.bounds.size.width * 3, self.bounds.size.height);
-    [_scrollView setContentOffset:CGPointMake(self.bounds.size.width, 0) animated:NO];
+        CGSize scrollSize = self.bounds.size;
+        [_firstView setFrame:CGRectMake(0, 0, scrollSize.width, scrollSize.height)];
+        [_middleView setFrame:CGRectMake(scrollSize.width, 0, scrollSize.width, scrollSize.height)];
+        [_lastView
+            setFrame:CGRectMake(scrollSize.width * 2, 0, scrollSize.width, scrollSize.height)];
+        [_scrollView addSubview:_firstView];
+        [_scrollView addSubview:_middleView];
+        [_scrollView addSubview:_lastView];
+        _scrollView.contentSize = CGSizeMake(self.bounds.size.width * 3, self.bounds.size.height);
+        [_scrollView setContentOffset:CGPointMake(self.bounds.size.width, 0) animated:NO];
+    }
 }
 
 #pragma mark ScrollView Delegate
