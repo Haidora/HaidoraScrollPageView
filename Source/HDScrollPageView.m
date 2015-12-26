@@ -135,6 +135,10 @@
 {
     //自动timer滑行后自动替换，不再动画
     [self reloadData];
+    if (_didScrollBlock)
+    {
+        _didScrollBlock(self, _currentPage);
+    }
 }
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
